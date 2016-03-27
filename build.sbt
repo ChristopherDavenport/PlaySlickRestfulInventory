@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.191",
   "org.postgresql" % "postgresql" % "9.4.1208",
   "com.github.tototoshi" %% "slick-joda-mapper" % "2.1.0",
+  "com.github.tminglei" %% "slick-pg" % "0.12.0",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.12.0",
   cache,
   ws,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test
