@@ -1,19 +1,21 @@
 package controllers
 
 import javax.inject.Inject
-import dao.CatsDAO
+
+import dao.{CatsDAO, NewCatsDAO}
 import models.Cat
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
 /**
   * Created by chris on 3/27/16.
   */
-class CatsController @Inject()(catsDAO: CatsDAO) extends Controller {
+class CatsController @Inject()(catsDAO: NewCatsDAO) extends Controller {
 
 //  implicit object CatWrites extends Writes[Cat] {
 //    def writes(c: Cat) = Json.obj(

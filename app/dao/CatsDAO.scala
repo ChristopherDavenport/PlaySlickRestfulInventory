@@ -24,11 +24,12 @@ class CatsDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
     def desc = column[String]("DESC")
 
     def * = (name, desc) <> (Cat.tupled, Cat.unapply)
+    val pk = name
   }
 
   private val Cats = TableQuery[CatsTable]
 
-  def insertOrUpdate(row: Cat) = {
+  def insertOrUpdate(row: Cat): Future[Int] = {
     db.run(Cats.insertOrUpdate(row))
   }
 
@@ -41,7 +42,7 @@ class CatsDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
   }
 
   def delete(pks: Seq[String]) : Future[Int] = {
-    db.run(Cats.filter(_.name.inSet(pks)).delete)
+    db.run(Cats.filter(_.pk.inSet(pks)).delete)
   }
 
   def findAll() : Future[Seq[Cat]] = db.run(Cats.result)

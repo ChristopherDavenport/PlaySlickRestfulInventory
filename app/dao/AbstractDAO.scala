@@ -10,26 +10,50 @@ import scala.concurrent.Future
 /**
   * Created by chris on 4/10/16.
   */
-abstract class AbstractDAO[A, C] @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
+abstract class AbstractDAO[A] extends
   HasDatabaseConfig[JdbcProfile]{
 
-  protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._
 
-  def classPk(a: A): C
+  // These Are The Values That Need To Be Supplied In The Implemented DAO
 
   val TableName: String
+
   type ClassTable <: BaseTable
   abstract class BaseTable(tag: Tag) extends Table[A](tag , TableName ) {
 
-    def pk: Rep[C]
+    val pk: Rep[String]
   }
 
-  val Query : TableQuery[ClassTable]
+  def Query : TableQuery[ClassTable]
 
-  def insertOrUpdate(row: A) = {
+
+  // This is where the magic methods happen
+  def insertOrUpdate(row: A): Future[Int] = {
     db.run(Query.insertOrUpdate(row))
   }
+
+  def insertOrUpdate(rows: Seq[A]): Future[Unit] = {
+    Future { rows.foreach(insertOrUpdate(_)) }
+  }
+
+  def delete(pk: String): Future[Int] = {
+    delete(Seq(pk))
+  }
+
+  def delete(pks: Seq[String]) : Future[Int] = {
+    db.run(Query.filter(_.pk.inSet(pks)).delete)
+  }
+
+  def findAll() : Future[Seq[A]] = db.run(Query.result)
+
+  def find(string: String): Future[Seq[A]] = {
+    db.run( Query.filter(_.pk like s"%$string%").result )
+  }
+
+  def createTable() : Future[Unit] = db.run(DBIO.seq(Query.schema.create))
+
+  def dropTable() : Future[Unit] = db.run(DBIO.seq(Query.schema.drop))
 
 
 
