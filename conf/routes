@@ -9,10 +9,10 @@ GET     /printers                   controllers.PrintersController.index
 GET     /printers/list              controllers.PrintersController.list
 
 GET     /cats                       controllers.CatsController.index
-GET     /cats/create                controllers.CatsController.create()
-GET     /cats/list                  controllers.CatsController.list
-GET     /cats/find/:string          controllers.CatsController.find(string)
-POST    /cats/insert                controllers.CatsController.insertOrUpdate()
+GET     /cats/create                controllers.NewCatsController.createTable()
+GET     /cats/list                  controllers.NewCatsController.findAll
+GET     /cats/find/:string          controllers.NewCatsController.find(string)
+POST    /cats/insert                controllers.NewCatsController.insertOrUpdate()
 
 
 
