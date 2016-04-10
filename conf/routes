@@ -8,7 +8,6 @@ GET     /                           controllers.IndexController.index
 GET     /printers                   controllers.PrintersController.index
 GET     /printers/list              controllers.PrintersController.list
 
-GET     /cats                       controllers.CatsController.index
 GET     /cats/create                controllers.NewCatsController.createTable()
 GET     /cats/list                  controllers.NewCatsController.findAll
 GET     /cats/find/:string          controllers.NewCatsController.find(string)
@@ -17,10 +16,11 @@ GET     /cats/:pk                   controllers.NewCatsController.findOne(pk)
 
 
 
-GET     /asset-groups               controllers.Asset_GroupController.index
-GET     /asset-groups/create        controllers.Asset_GroupController.create
-GET     /asset-groups/list          controllers.Asset_GroupController.list
-GET     /asset-groups/:PK           controllers.Asset_GroupController.Asset_Group(PK)
+GET     /asset-groups/create        controllers.Asset_GroupController.createTable()
+GET     /asset-groups/list          controllers.Asset_GroupController.findAll
+GET     /asset-groups/find/:string  controllers.Asset_GroupController.find(string)
+POST    /asset-groups/insert        controllers.Asset_GroupController.insertOrUpdate()
+GET     /asset-groups/:PK           controllers.Asset_GroupController.findOne(PK)
 
 
 

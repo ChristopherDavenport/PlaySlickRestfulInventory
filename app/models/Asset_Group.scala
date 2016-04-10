@@ -10,6 +10,6 @@ case class Asset_Group(
                       Status_Check: String,
                       Status_Date: DateTime,
                       Activity_User: String,
-                      Activity_Date: DateTime,
+                      Activity_Date: DateTime = DateTime.now(),
                       Ip_Rpt_Check: Option[String]
                       )

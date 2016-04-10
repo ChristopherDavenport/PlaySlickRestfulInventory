@@ -1,7 +1,7 @@
 package models
 
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsPath, Reads, Writes}
+import play.api.libs.json.{JsPath, Json, Reads, Writes}
 
 /**
   * Created by chris on 4/10/16.
@@ -18,5 +18,8 @@ class JsonModule {
     (JsPath \ "name").read[String] and
       (JsPath \ "desc").read[String]
     )(Cat.apply _)
+
+  implicit val assetGroupWrites = Json.writes[Asset_Group]
+  implicit val assetGroupReads = Json.reads[Asset_Group]
 
 }

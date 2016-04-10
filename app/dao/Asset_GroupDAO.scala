@@ -7,20 +7,20 @@ import org.joda.time.DateTime
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfig}
 import slick.driver.JdbcProfile
 import com.github.tototoshi.slick.PostgresJodaSupport._
-import scala.concurrent.Future
 
 /**
   * Created by chris on 4/9/16.
   */
 @Singleton()
 class Asset_GroupDAO  @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
-  HasDatabaseConfig[JdbcProfile] {
+  AbstractDAO[Asset_Group] with HasDatabaseConfig[JdbcProfile] {
 
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._
 
-  class Asset_GroupTable(tag: Tag) extends Table[Asset_Group](tag, "ASSET_GROUPS") {
-    def Asset_Group_PK = column[String]("ASSET_GROUP_PK")
+  val TableName = "CATS"
+  class ClassTable(tag: Tag) extends BaseTable(tag) {
+    def Asset_Group_PK = column[String]("ASSET_GROUP_PK", O.PrimaryKey)
     def Asset_Group_Desc = column[String]("ASSET_GROUP_DESC")
     def Status_Check = column[String]("STATUS_CK")
     def Status_Date = column[DateTime]("STATUS_DATE")
@@ -30,13 +30,10 @@ class Asset_GroupDAO  @Inject()(dbConfigProvider: DatabaseConfigProvider) extend
 
     def * = (Asset_Group_PK, Asset_Group_Desc, Status_Check, Status_Date,
       Activity_User, Activity_Date, Ip_Rpt_Check) <> (Asset_Group.tupled, Asset_Group.unapply)
+
+    val pk = Asset_Group_PK
   }
 
-  private val Asset_Groups = TableQuery[Asset_GroupTable]
+  val Query = TableQuery[ClassTable]
 
-  def create() = db.run(DBIO.seq(Asset_Groups.schema.create))
-  def all() : Future[Seq[Asset_Group]] = db.run(Asset_Groups.result)
-  def get(PK: String):Future[Seq[Asset_Group]] = db.run(Asset_Groups.filter(_.Asset_Group_PK === PK).result)
-
-  def add(myCat: Asset_Group) = db.run(Asset_Groups.insertOrUpdate(myCat))
 }
