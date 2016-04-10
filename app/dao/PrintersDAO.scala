@@ -7,24 +7,21 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfig}
 import slick.driver.JdbcProfile
 import models.Printer
 import com.github.tototoshi.slick.PostgresJodaSupport._
-import scala.concurrent.Future
-
-
 
 /**
   * Created by chris on 3/26/16.
   */
 
-
 @Singleton()
 class PrintersDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
-  HasDatabaseConfig[JdbcProfile] {
+  AbstractDAO[Printer] with HasDatabaseConfig[JdbcProfile] {
+
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._
 
-  private class PrintersTable(tag: Tag) extends Table[Printer](tag, "printers"){
-    def id = column[Option[Long]]("id", O.AutoInc, O.PrimaryKey)
-    def printer_pk = column[String]("printer_pk")
+  val TableName = "PRINTERS"
+  class ClassTable(tag: Tag) extends BaseTable(tag){
+    def printer_pk = column[String]("printer_pk", O.PrimaryKey)
     def printer_desc = column[String]("printer_desc")
     def pages_per_min = column[Option[Int]]("pages_per_min")
     def charge_back = column[Option[Double]]("charge_back")
@@ -35,15 +32,14 @@ class PrintersDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
     def created_user = column[Option[String]]("created_user")
     def created_date = column[Option[DateTime]]("created_date")
 
-    def * = ( id , printer_pk, printer_desc,
+    def * = ( printer_pk, printer_desc,
       pages_per_min , charge_back ,
       status_ck , status_date,
       activity_user , activity_date ,
       created_user , created_date ) <> ( Printer.tupled , Printer.unapply )
+
+    val pk = printer_pk
   }
 
-
-  private val Printers = TableQuery[PrintersTable]
-
-  def all() : Future[Seq[Printer]] = db.run(Printers.result)
+  val Query = TableQuery[ClassTable]
 }

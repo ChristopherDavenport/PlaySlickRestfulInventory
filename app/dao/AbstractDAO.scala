@@ -5,6 +5,7 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfig}
 import slick.driver.JdbcProfile
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.concurrent.Future
+import com.github.tototoshi.slick.PostgresJodaSupport._
 
 
 /**

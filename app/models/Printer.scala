@@ -6,7 +6,6 @@ import org.joda.time.DateTime
   * Created by chris on 3/26/16.
   */
 case class Printer(
-                    id: Option[Long],
                     printer_pk: String,
                     printer_desc: String,
                     pages_per_min: Option[Int],

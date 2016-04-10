@@ -17,7 +17,7 @@ abstract class AbstractController[C, D <: AbstractDAO[C]](dao: D)(
 
 
   def createTable() = Action.async{ request =>
-    dao.createTable().map(_ => Ok("Table Created"))
+    dao.createTable().map(_ => Created(Json.obj("status" -> "OK", "message" -> "Table Created")))
   }
 
   def dropTable() = Action.async{ request =>

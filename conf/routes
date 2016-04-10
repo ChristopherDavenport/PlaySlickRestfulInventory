@@ -5,22 +5,24 @@
 # An example controller showing a sample home page
 GET     /                           controllers.IndexController.index
 
-GET     /printers                   controllers.PrintersController.index
-GET     /printers/list              controllers.PrintersController.list
 
-GET     /cats/create                controllers.NewCatsController.createTable()
+GET     /printers/list              controllers.PrintersController.findAll
+GET     /printers/find/:string      controllers.PrintersController.find(string)
+GET     /printers/:pk               controllers.PrintersController.findOne(pk)
+POST    /printers/insert            controllers.PrintersController.insertOrUpdate()
+POST    /printers/create            controllers.PrintersController.createTable()
+
 GET     /cats/list                  controllers.NewCatsController.findAll
 GET     /cats/find/:string          controllers.NewCatsController.find(string)
-POST    /cats/insert                controllers.NewCatsController.insertOrUpdate()
 GET     /cats/:pk                   controllers.NewCatsController.findOne(pk)
+POST    /cats/insert                controllers.NewCatsController.insertOrUpdate()
+POST    /cats/create                controllers.NewCatsController.createTable()
 
-
-
-GET     /asset-groups/create        controllers.Asset_GroupController.createTable()
 GET     /asset-groups/list          controllers.Asset_GroupController.findAll
 GET     /asset-groups/find/:string  controllers.Asset_GroupController.find(string)
+GET     /asset-groups/:pk           controllers.Asset_GroupController.findOne(pk)
 POST    /asset-groups/insert        controllers.Asset_GroupController.insertOrUpdate()
-GET     /asset-groups/:PK           controllers.Asset_GroupController.findOne(PK)
+POST    /asset-groups/create        controllers.Asset_GroupController.createTable()
 
 
 

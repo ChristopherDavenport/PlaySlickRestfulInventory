@@ -1,18 +1,15 @@
 package controllers
 
 import javax.inject.Inject
-import dao.PrintersDAO
-import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import models.Printer
 
+import dao.PrintersDAO
+import models.{JsonModule, Printer}
 
 /**
   * Created by chris on 3/26/16.
   */
-class PrintersController @Inject()(printersDao: PrintersDAO) extends Controller {
+class PrintersController @Inject()(dao: PrintersDAO, json: JsonModule) extends
+  AbstractController[Printer, PrintersDAO](dao)(json.printerWrites, json.printerReads)
 
 //  implicit val printerWrites: Writes[Printer] = (
 //  (JsPath \ "id").write[Long] and
@@ -31,18 +28,6 @@ class PrintersController @Inject()(printersDao: PrintersDAO) extends Controller 
 
 //  implicit val printerFormat = Json.format[Printer]
 
-  implicit val jsonWrites = Json.writes[Printer]
 
 
-  def index = Action { request => Ok("Hi from Printer Controller!")}
 
-
-  def list = Action.async {
-    request =>
-      printersDao.all().map{ printers => Ok(Json.toJson(printers))}
-  }
-}
-
-//def list = Action.async { request =>
-//  catsDAO.all().map{ cats => Ok(Json.toJson(cats))}
-//}

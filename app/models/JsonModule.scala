@@ -22,4 +22,7 @@ class JsonModule {
   implicit val assetGroupWrites = Json.writes[Asset_Group]
   implicit val assetGroupReads = Json.reads[Asset_Group]
 
+  implicit val printerWrites = Json.writes[Printer]
+  implicit val printerReads = Json.reads[Printer]
+
 }
