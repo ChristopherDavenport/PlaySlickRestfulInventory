@@ -3,13 +3,25 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.PrintersController.index
+GET     /                           controllers.IndexController.index
 
-GET     /list                       controllers.PrintersController.list
+GET     /printers                   controllers.PrintersController.index
+GET     /printers/list              controllers.PrintersController.list
 
 GET     /cats                       controllers.CatsController.index
-GET     /cats/list                  controllers.CatsController.list()
 GET     /cats/create                controllers.CatsController.create()
+GET     /cats/list                  controllers.CatsController.list
+GET     /cats/find/:string          controllers.CatsController.find(string)
+POST    /cats/insert                controllers.CatsController.insertOrUpdate()
+
+
+
+GET     /asset-groups               controllers.Asset_GroupController.index
+GET     /asset-groups/create        controllers.Asset_GroupController.create
+GET     /asset-groups/list          controllers.Asset_GroupController.list
+GET     /asset-groups/:PK           controllers.Asset_GroupController.Asset_Group(PK)
+
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

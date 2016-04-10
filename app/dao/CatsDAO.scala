@@ -19,15 +19,42 @@ class CatsDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._
 
-  private class CatsTable(tag: Tag) extends Table[Cat](tag, "cats") {
-    def name = column[String]("name")
-    def desc = column[String]("desc")
+  class CatsTable(tag: Tag) extends Table[Cat](tag, "CATS") {
+    def name = column[String]("NAME", O.PrimaryKey)
+    def desc = column[String]("DESC")
 
     def * = (name, desc) <> (Cat.tupled, Cat.unapply)
   }
 
   private val Cats = TableQuery[CatsTable]
 
-  def create() = db.run(DBIO.seq(Cats.schema.create))
-  def all() : Future[Seq[Cat]] = db.run(Cats.result)
+  def insertOrUpdate(row: Cat) = {
+    db.run(Cats.insertOrUpdate(row))
+  }
+
+  def insertOrUpdate(rows: Seq[Cat]): Future[Unit] = {
+    Future { rows.foreach(insertOrUpdate(_)) }
+  }
+
+  def delete(pk: String): Future[Int] = {
+    delete(Seq(pk))
+  }
+
+  def delete(pks: Seq[String]) : Future[Int] = {
+    db.run(Cats.filter(_.name.inSet(pks)).delete)
+  }
+
+  def findAll() : Future[Seq[Cat]] = db.run(Cats.result)
+
+  def find(string: String): Future[Seq[Cat]] = {
+    val filterName = Cats.filter { cat =>
+        cat.name like s"%$string%"
+    }
+    db.run( filterName.result )
+  }
+
+  def createTable() : Future[Unit] = db.run(DBIO.seq(Cats.schema.create))
+
+  def dropTable() : Future[Unit] = db.run(DBIO.seq(Cats.schema.drop))
+
 }
