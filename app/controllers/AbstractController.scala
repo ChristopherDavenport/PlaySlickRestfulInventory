@@ -1,10 +1,8 @@
 package controllers
 
 import dao.AbstractDAO
-import models.JsonModule
 import play.api.libs.json.{JsError, Json, Reads, Writes}
 import play.api.mvc.{Action, BodyParsers, Controller}
-import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import scala.concurrent.Future
@@ -31,7 +29,11 @@ abstract class AbstractController[C, D <: AbstractDAO[C]](dao: D)(
   }
 
   def find(string: String) = Action.async { request =>
-    dao.find(string).map { cats => Ok(Json.toJson(cats)) }
+    dao.find(string).map { value => Ok(Json.toJson(value)) }
+  }
+
+  def findOne(string: String) = Action.async { request =>
+    dao.findOne(string).map {value => Ok(Json.toJson(value))}
   }
 
   def insertOrUpdate() = Action.async(BodyParsers.parse.json) { request =>
@@ -41,7 +43,7 @@ abstract class AbstractController[C, D <: AbstractDAO[C]](dao: D)(
         Future(BadRequest(Json.obj("status" -> "OK", "message" -> JsError.toJson(errors))))
       },
       cats => {
-        dao.insertOrUpdate(cats).map(_ => Ok(Json.obj("status" -> "OK", "message" -> "Entities added")))
+        dao.insertOrUpdate(cats).map(_ => Created(Json.obj("status" -> "OK", "message" -> "Entities added")))
       }
     )
   }

@@ -13,6 +13,7 @@ GET     /cats/create                controllers.NewCatsController.createTable()
 GET     /cats/list                  controllers.NewCatsController.findAll
 GET     /cats/find/:string          controllers.NewCatsController.find(string)
 POST    /cats/insert                controllers.NewCatsController.insertOrUpdate()
+GET     /cats/:pk                   controllers.NewCatsController.findOne(pk)
 
 
 

@@ -51,6 +51,10 @@ abstract class AbstractDAO[A] extends
     db.run( Query.filter(_.pk like s"%$string%").result )
   }
 
+  def findOne(string: String): Future[Option[A]] = {
+    db.run( Query.filter(_.pk === string).result.map(r => r.headOption))
+  }
+
   def createTable() : Future[Unit] = db.run(DBIO.seq(Query.schema.create))
 
   def dropTable() : Future[Unit] = db.run(DBIO.seq(Query.schema.drop))
