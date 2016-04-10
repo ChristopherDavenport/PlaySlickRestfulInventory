@@ -2,10 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
 GET     /                           controllers.IndexController.index
 
-
+GET     /printers                   controllers.IndexController.printers
 GET     /printers/list              controllers.PrintersController.findAll
 GET     /printers/find/:string      controllers.PrintersController.find(string)
 GET     /printers/:pk               controllers.PrintersController.findOne(pk)
@@ -18,6 +17,7 @@ GET     /cats/:pk                   controllers.NewCatsController.findOne(pk)
 POST    /cats/insert                controllers.NewCatsController.insertOrUpdate()
 POST    /cats/create                controllers.NewCatsController.createTable()
 
+GET     /asset-groups               controllers.IndexController.asset_groups
 GET     /asset-groups/list          controllers.Asset_GroupController.findAll
 GET     /asset-groups/find/:string  controllers.Asset_GroupController.find(string)
 GET     /asset-groups/:pk           controllers.Asset_GroupController.findOne(pk)
