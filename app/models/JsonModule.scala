@@ -28,4 +28,7 @@ class JsonModule {
   implicit val assetTypeWrites = Json.writes[Asset_Type]
   implicit val assetTypeReads = Json.reads[Asset_Type]
 
+  implicit val buildingWrites = Json.writes[Building]
+  implicit val buildingReads = Json.reads[Building]
+
 }

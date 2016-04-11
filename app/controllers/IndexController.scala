@@ -14,5 +14,6 @@ class IndexController extends Controller {
   def cats = TODO
   def asset_groups = TODO
   def asset_types = TODO
+  def buildings = TODO
 
 }

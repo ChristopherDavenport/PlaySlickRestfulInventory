@@ -36,6 +36,14 @@ POST    /asset-types/insert         controllers.Asset_TypeController.insertOrUpd
 POST    /asset-types/delete/:pk     controllers.Asset_TypeController.delete(pk: String)
 POST    /asset-types/create         controllers.Asset_TypeController.createTable()
 
+GET     /buildings                  controllers.IndexController.buildings
+GET     /buildings/list             controllers.BuildingController.findAll
+GET     /buildings/find:string      controllers.BuildingController.find(string: String)
+GET     /buildings/:pk              controllers.BuildingController.findOne(pk: String)
+POST    /buildings/insert           controllers.BuildingController.insertOrUpdate()
+POST    /buildings/delete/:pk       controllers.BuildingController.delete(pk: String)
+POST    /buildings/create           controllers.BuildingController.createTable()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
