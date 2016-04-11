@@ -6,30 +6,34 @@ GET     /                           controllers.IndexController.index
 
 GET     /printers                   controllers.IndexController.printers
 GET     /printers/list              controllers.PrintersController.findAll
-GET     /printers/find/:string      controllers.PrintersController.find(string)
-GET     /printers/:pk               controllers.PrintersController.findOne(pk)
+GET     /printers/find/:string      controllers.PrintersController.find(string: String)
+GET     /printers/:pk               controllers.PrintersController.findOne(pk: String)
 POST    /printers/insert            controllers.PrintersController.insertOrUpdate()
+POST    /printers/delete/:pk        controllers.PrintersController.delete(pk: String)
 POST    /printers/create            controllers.PrintersController.createTable()
 
 GET     /cats                       controllers.IndexController.cats
 GET     /cats/list                  controllers.NewCatsController.findAll
-GET     /cats/find/:string          controllers.NewCatsController.find(string)
-GET     /cats/:pk                   controllers.NewCatsController.findOne(pk)
+GET     /cats/find/:string          controllers.NewCatsController.find(string: String)
+GET     /cats/:pk                   controllers.NewCatsController.findOne(pk: String)
 POST    /cats/insert                controllers.NewCatsController.insertOrUpdate()
+POST    /cats/delete/:pk            controllers.NewCatsController.delete(pk: String)
 POST    /cats/create                controllers.NewCatsController.createTable()
 
 GET     /asset-groups               controllers.IndexController.asset_groups
 GET     /asset-groups/list          controllers.Asset_GroupController.findAll
-GET     /asset-groups/find/:string  controllers.Asset_GroupController.find(string)
-GET     /asset-groups/:pk           controllers.Asset_GroupController.findOne(pk)
+GET     /asset-groups/find/:string  controllers.Asset_GroupController.find(string: String)
+GET     /asset-groups/:pk           controllers.Asset_GroupController.findOne(pk: String)
 POST    /asset-groups/insert        controllers.Asset_GroupController.insertOrUpdate()
+POST    /asset-groups/delete/:pk    controllers.Asset_GroupController.delete(pk: String)
 POST    /asset-groups/create        controllers.Asset_GroupController.createTable()
 
 GET     /asset-types                controllers.IndexController.asset_types
 GET     /asset-types/list           controllers.Asset_TypeController.findAll
-GET     /asset-types/find/:string   controllers.Asset_TypeController.find(string)
-GET     /asset-types/:pk            controllers.Asset_TypeController.findOne(pk)
+GET     /asset-types/find/:string   controllers.Asset_TypeController.find(string: String)
+GET     /asset-types/:pk            controllers.Asset_TypeController.findOne(pk: String)
 POST    /asset-types/insert         controllers.Asset_TypeController.insertOrUpdate()
+POST    /asset-types/delete/:pk     controllers.Asset_TypeController.delete(pk: String)
 POST    /asset-types/create         controllers.Asset_TypeController.createTable()
 
 

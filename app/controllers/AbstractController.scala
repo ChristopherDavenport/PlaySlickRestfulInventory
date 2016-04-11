@@ -49,4 +49,8 @@ abstract class AbstractController[C, T <: BaseTable[C], D <: AbstractDAO[C, T]](
     )
   }
 
+  def delete(string: String) = Action.async { request =>
+    dao.delete(string).map {value => Ok(Json.toJson(value))}
+  }
+
 }
