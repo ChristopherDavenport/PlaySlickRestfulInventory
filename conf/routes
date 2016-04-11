@@ -11,6 +11,7 @@ GET     /printers/:pk               controllers.PrintersController.findOne(pk)
 POST    /printers/insert            controllers.PrintersController.insertOrUpdate()
 POST    /printers/create            controllers.PrintersController.createTable()
 
+GET     /cats                       controllers.IndexController.cats
 GET     /cats/list                  controllers.NewCatsController.findAll
 GET     /cats/find/:string          controllers.NewCatsController.find(string)
 GET     /cats/:pk                   controllers.NewCatsController.findOne(pk)

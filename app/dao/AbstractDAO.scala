@@ -4,29 +4,29 @@ import javax.inject.{Inject, Singleton}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfig}
 import slick.driver.JdbcProfile
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
 import scala.concurrent.Future
 import com.github.tototoshi.slick.PostgresJodaSupport._
+import tables.BaseTable
 
 
 /**
   * Created by chris on 4/10/16.
   */
-abstract class AbstractDAO[A] extends
+abstract class AbstractDAO[A, T <: BaseTable[A]] extends
   HasDatabaseConfig[JdbcProfile]{
 
   import driver.api._
 
   // These Are The Values That Need To Be Supplied In The Implemented DAO
 
-  val TableName: String
 
-  type ClassTable <: BaseTable
-  abstract class BaseTable(tag: Tag) extends Table[A](tag , TableName ) {
 
-    val pk: Rep[String]
-  }
+//  abstract class BaseTable(tag: Tag, TableName: String) extends Table[A](tag , TableName ) {
+//    val pk: Rep[String]
+//  }
 
-  def Query : TableQuery[ClassTable]
+  def Query : TableQuery[T]
 
 
   // This is where the magic methods happen

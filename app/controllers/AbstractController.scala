@@ -4,6 +4,7 @@ import dao.AbstractDAO
 import play.api.libs.json.{JsError, Json, Reads, Writes}
 import play.api.mvc.{Action, BodyParsers, Controller}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import tables.BaseTable
 
 import scala.concurrent.Future
 
@@ -12,7 +13,7 @@ import scala.concurrent.Future
   *
   * Requires Implicit json Converter
   */
-abstract class AbstractController[C, D <: AbstractDAO[C]](dao: D)(
+abstract class AbstractController[C, T <: BaseTable[C], D <: AbstractDAO[C, T]](dao: D)(
   implicit val jsonWrites : Writes[C], implicit val jsonReads: Reads[C]) extends Controller {
 
 

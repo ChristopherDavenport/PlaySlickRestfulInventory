@@ -7,8 +7,8 @@ import org.joda.time.DateTime
 case class Asset_Group(
                       Asset_Group_PK: String,
                       Asset_Group_Desc: String,
-                      Status_Check: String,
-                      Status_Date: DateTime,
+                      Status_Check: String = "A",
+                      Status_Date: DateTime = DateTime.now(),
                       Activity_User: String,
                       Activity_Date: DateTime = DateTime.now(),
                       Ip_Rpt_Check: Option[String]
