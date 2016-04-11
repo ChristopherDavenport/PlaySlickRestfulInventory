@@ -25,6 +25,12 @@ GET     /asset-groups/:pk           controllers.Asset_GroupController.findOne(pk
 POST    /asset-groups/insert        controllers.Asset_GroupController.insertOrUpdate()
 POST    /asset-groups/create        controllers.Asset_GroupController.createTable()
 
+GET     /asset-types                controllers.IndexController.asset_types
+GET     /asset-types/list           controllers.Asset_TypeController.findAll
+GET     /asset-types/find/:string   controllers.Asset_TypeController.find(string)
+GET     /asset-types/:pk            controllers.Asset_TypeController.findOne(pk)
+POST    /asset-types/insert         controllers.Asset_TypeController.insertOrUpdate()
+POST    /asset-types/create         controllers.Asset_TypeController.createTable()
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -16,10 +16,13 @@ class Asset_TypeTable (tag: Tag) extends
   def Status_Date = column[DateTime]("STATUS_DATE")
   def Activity_User = column[String]("ACTIVITY_USER")
   def Activity_Date = column[DateTime]("ACTIVITY_DATE")
-  def Asset_Group_FK = column[String]("ASSET_GROUP_FK")
+  def Asset_Group = column[String]("ASSET_GROUP_FK")
+
+  def Asset_Group_FK = foreignKey("ASSET_GROUP_FK", Asset_Group, TableQuery[Asset_GroupTable])(_.Asset_Group_PK,
+    onUpdate = ForeignKeyAction.Restrict)
 
   def * = (Asset_Type_PK, Asset_Type_Desc, Status_Check,
-    Status_Date, Activity_User, Activity_Date, Asset_Group_FK
+    Status_Date, Activity_User, Activity_Date, Asset_Group
     ) <> (Asset_Type.tupled, Asset_Type.unapply)
 
   val pk = Asset_Type_PK

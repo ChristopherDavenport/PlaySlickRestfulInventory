@@ -13,5 +13,6 @@ class IndexController extends Controller {
   def printers = TODO
   def cats = TODO
   def asset_groups = TODO
+  def asset_types = TODO
 
 }
