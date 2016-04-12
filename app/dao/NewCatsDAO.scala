@@ -12,11 +12,10 @@ import tables.CatsTable
   */
 @Singleton
 class NewCatsDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
-  AbstractDAO[Cat, CatsTable] with HasDatabaseConfig[JdbcProfile] {
+  AbstractDAO[Cat, CatsTable] {
 
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._
-
   val Query = TableQuery[CatsTable]
 
 }

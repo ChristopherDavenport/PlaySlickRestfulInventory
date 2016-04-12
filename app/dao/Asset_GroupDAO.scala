@@ -12,7 +12,7 @@ import tables.Asset_GroupTable
   */
 @Singleton()
 class Asset_GroupDAO  @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
-  AbstractDAO[Asset_Group, Asset_GroupTable] with HasDatabaseConfig[JdbcProfile] {
+  AbstractDAO[Asset_Group, Asset_GroupTable]{
 
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._

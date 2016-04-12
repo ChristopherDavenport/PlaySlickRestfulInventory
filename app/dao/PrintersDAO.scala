@@ -15,7 +15,7 @@ import tables.PrintersTable
 
 @Singleton()
 class PrintersDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
-  AbstractDAO[Printer, PrintersTable] with HasDatabaseConfig[JdbcProfile] {
+  AbstractDAO[Printer, PrintersTable]{
 
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._

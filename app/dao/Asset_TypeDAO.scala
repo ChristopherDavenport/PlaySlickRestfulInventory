@@ -13,7 +13,7 @@ import tables.Asset_TypeTable
   */
 @Singleton()
 class Asset_TypeDAO @Inject()(dbConfigProvider: DatabaseConfigProvider) extends
-  AbstractDAO[Asset_Type, Asset_TypeTable] with HasDatabaseConfig[JdbcProfile] {
+  AbstractDAO[Asset_Type, Asset_TypeTable] {
 
   protected implicit val dbConfig = dbConfigProvider.get[JdbcProfile]
   import driver.api._
